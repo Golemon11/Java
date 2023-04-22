@@ -1,55 +1,74 @@
+package HW2;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-import java.util.logging.XMLFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-public class Task_1_1 {
+/**
+ * В файле содержится строка с исходными данными в такой форме:
+ * {"name":"Ivanov", "country":"Russia", "city":"Moscow", "age":"null"}
+ * Требуется на её основе построить и вывести на экран новую строку, в форме SQL
+ * запроса:
+ * SELECT * FROM students WHERE name = "Ivanov" AND country = "Russia" AND city
+ * = "Moscow";
+ */
 
-    public static void main(String[] args) throws SecurityException, IOException {
-        int[] arr = new int[] { 3, 6, 1, 0, 5, 8, 12, 45, 10, 11, 5, 2 };
-        show_array("Исходный массив: ", arr);
-        show_array("Отсортированный массив: ", bubble_sort(arr));
+public class task2_1 {
+
+  public static String reader() {
+    StringBuilder sb = new StringBuilder();
+    try (BufferedReader reader = Files.newBufferedReader(Paths.get("Txt1.txt"))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        sb.append(line).append(System.lineSeparator());
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    String str = sb.toString();
+    return str;
 
-    // Метод пузырьковой сортировки
-    public static int[] bubble_sort(int[] array) throws SecurityException, IOException {
-        // Запись логов в txt-файл
-        Logger text_logger = Logger.getLogger(Task_1_1.class.getName());
-        FileHandler filetext = new FileHandler("C:\Users\Oleg\Desktop\Vic\Java\log.txt",
-                true);
-        text_logger.addHandler(filetext);
-        SimpleFormatter sFormat = new SimpleFormatter();
-        filetext.setFormatter(sFormat);
-        // Запись логов в xml-файл
-        Logger xml_logger = Logger.getLogger(Task_1_1.class.getName());
-        FileHandler file = new FileHandler("C:\Users\Oleg\Desktop\Vic\Java/log.xml", 104857600, 200,
-                true);
-        xml_logger.addHandler(file);
-        XMLFormatter xmlform = new XMLFormatter();
-        file.setFormatter(xmlform);
+  }
 
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length - 1; j++) {
-                if (array[j] > array[j + 1]) {
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
-                    text_logger.info(Arrays.toString(array));
-                    xml_logger.info(Arrays.toString(array));
-                }
-            }
-        }
-        return array;
+  public static void split(String str) {
+    String str2 = str.replace("{", "")
+        .replace("}", "")
+        .replace("\"", "");
+    String[] newStr = str2.split(", ");
+
+    Map<String, String> dictionary = new HashMap<String, String>();
+    for (String item : newStr) {
+      String[] strnew = item.split(":");
+      System.out.println(Arrays.toString(strnew));
+      for (int i = 0; i < newStr.length; i++) {
+        dictionary.put(strnew[0], strnew[1]);
+
+      }
     }
-
-    
-    public static void show_array(String msg, int[] array) {
-        System.out.println();
-        System.out.println(msg);
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
+    System.out.println(dictionary.entrySet());
+    StringBuilder WHERE = new StringBuilder();
+    Set<Map.Entry<String, String>> pair = dictionary.entrySet();
+    List<Map.Entry<String, String>> list = new ArrayList<>(pair);
+    for (int i = 0; i < list.size(); i++) {
+      if (!list.get(i).getValue().equals("null")) {
+        WHERE.append(list.get(i).getKey() + " = " + list.get(i).getValue() + " and ");
+        
+      }
     }
+    System.out.println(WHERE);
+
+  }
+
+  public static void main(String[] args) {
+
+    split(reader());
+
+  }
 }

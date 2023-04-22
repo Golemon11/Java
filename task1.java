@@ -17,14 +17,14 @@ public class Task_1_1 {
     public static int[] bubble_sort(int[] array) throws SecurityException, IOException {
         // Запись логов в txt-файл
         Logger text_logger = Logger.getLogger(Task_1_1.class.getName());
-        FileHandler filetext = new FileHandler("C:/Users/16-jl/Study/Java/HomeWorks/HomeWork_2/log_for_HW2.txt",
+        FileHandler filetext = new FileHandler("C:\Users\Oleg\Desktop\Vic\Java\log.txt",
                 true);
         text_logger.addHandler(filetext);
         SimpleFormatter sFormat = new SimpleFormatter();
         filetext.setFormatter(sFormat);
         // Запись логов в xml-файл
         Logger xml_logger = Logger.getLogger(Task_1_1.class.getName());
-        FileHandler file = new FileHandler("C:/Users/16-jl/Study/Java/HomeWorks/HomeWork_2/log.xml", 104857600, 200,
+        FileHandler file = new FileHandler("C:\Users\Oleg\Desktop\Vic\Java/log.xml", 104857600, 200,
                 true);
         xml_logger.addHandler(file);
         XMLFormatter xmlform = new XMLFormatter();
@@ -44,7 +44,7 @@ public class Task_1_1 {
         return array;
     }
 
-    // Метод выводящий массив в консоль
+    
     public static void show_array(String msg, int[] array) {
         System.out.println();
         System.out.println(msg);

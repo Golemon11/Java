@@ -1,16 +1,34 @@
-public class Task_2 {
+import java.io.File;
+import java.io.FileReader;
+
+public class Task_2_2 {
     public static void main(String[] args) {
-        int number = 1000;
-        int counter = 0;
-        System.out.printf("Простые числа в диапозоне от 1 до %d:\n", number);
-        for (int i = 2; i <= number; i++) {
-            for (int j = 2; j <= i; j++) {
-                if (i % j == 0) counter++;
+        read_and_parse_txt();
+    }
+
+    public static void read_and_parse_txt() {
+        String file_name = "C:/Users/16-jl/Study/Java/HomeWorks/HomeWork_2/db.txt";
+        File file = new File(file_name);
+        try {
+            FileReader f = new FileReader(file);
+            char[] a = new char[(int) file.length()];
+            f.read(a);
+            StringBuilder sb = new StringBuilder();
+            for (char c : a) {
+                sb.append(c);
             }
-            if (counter == 1) {
-                System.out.println(i);
-            } 
-            counter = 0;
+            f.close();
+            String line = sb.toString();
+            line = line.replace("фамилия", "Студент");
+            line = line.replace("оценка", "получил(а)");
+            line = line.replace("предмет", "по предмету");
+            line = line.replace("\"", "");
+            line = line.replace(":", " ");
+            line = line.replace(",", " ");
+            System.out.println(line);
+            
+        } catch (Exception e) {
+            System.out.println("Error" + e);
         }
     }
 }

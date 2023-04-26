@@ -1,74 +1,42 @@
-package HW2;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.Random;
 
-/**
- * В файле содержится строка с исходными данными в такой форме:
- * {"name":"Ivanov", "country":"Russia", "city":"Moscow", "age":"null"}
- * Требуется на её основе построить и вывести на экран новую строку, в форме SQL
- * запроса:
- * SELECT * FROM students WHERE name = "Ivanov" AND country = "Russia" AND city
- * = "Moscow";
- */
+public class Task_2_1 {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList<>();
+        rand_add_list(10, 100, list);
+        System.out.println("Исходный список: " + list);
+        min_element(list);
+        max_element(list);
+        avg_sum(list);
 
-public class task2_1 {
-
-  public static String reader() {
-    StringBuilder sb = new StringBuilder();
-    try (BufferedReader reader = Files.newBufferedReader(Paths.get("Txt1.txt"))) {
-      String line;
-      while ((line = reader.readLine()) != null) {
-        sb.append(line).append(System.lineSeparator());
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
     }
-    String str = sb.toString();
-    return str;
 
-  }
-
-  public static void split(String str) {
-    String str2 = str.replace("{", "")
-        .replace("}", "")
-        .replace("\"", "");
-    String[] newStr = str2.split(", ");
-
-    Map<String, String> dictionary = new HashMap<String, String>();
-    for (String item : newStr) {
-      String[] strnew = item.split(":");
-      System.out.println(Arrays.toString(strnew));
-      for (int i = 0; i < newStr.length; i++) {
-        dictionary.put(strnew[0], strnew[1]);
-
-      }
+    public static void rand_add_list(int count, int maxValue, ArrayList<Integer> list) {
+        Random rand = new Random();
+        for (int i = 0; i < count; i++) {
+            list.add(rand.nextInt(maxValue));
+        }
     }
-    System.out.println(dictionary.entrySet());
-    StringBuilder WHERE = new StringBuilder();
-    Set<Map.Entry<String, String>> pair = dictionary.entrySet();
-    List<Map.Entry<String, String>> list = new ArrayList<>(pair);
-    for (int i = 0; i < list.size(); i++) {
-      if (!list.get(i).getValue().equals("null")) {
-        WHERE.append(list.get(i).getKey() + " = " + list.get(i).getValue() + " and ");
-        
-      }
+
+    public static void min_element(ArrayList<Integer> list) {
+        list.sort(null);
+        int min = list.get(0);
+        System.out.println("Минимальный элемент в списке: " + min);
     }
-    System.out.println(WHERE);
 
-  }
+    public static void max_element(ArrayList<Integer> list) {
+        list.sort(null);
+        int max = list.get(list.size() - 1);
+        System.out.println("Минимальный элемент в списке: " + max);
+    }
 
-  public static void main(String[] args) {
-
-    split(reader());
-
-  }
+    public static void avg_sum(ArrayList<Integer> list) {
+        float sum = 0;
+        for (int i = 0; i < list.size(); i++) {
+            sum += list.get(i);
+        }
+        float avg = sum / list.size();
+        System.out.println("Среднее арифметическое эл-ов списка: " + avg);
+    }
 }

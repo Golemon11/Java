@@ -1,31 +1,64 @@
-package lesson3;
+/*
+ *  Напишите постфиксный калькулятор. 
+ * Пользователь вводит данные и операции в обратной польской записи. 
+ * Калькулятор вычисляет результат и проверяет, что в стэке получилось единственное число.
+ */
 
-//Задан целочисленный список ArrayList. Найти минимальное, максимальное и среднее арифметическое этого списка.
+ package HW4;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-
-public class Task3_3 {
-    public static void main(String[] args) {
-        ArrayList<Integer> my_list = new ArrayList<>();
-        Random rand = new Random();
-
-        int amount_elem = 20;
-        for (int i = 0; i < amount_elem; i++) {
-            int randNum = rand.nextInt(100);
-            my_list.add(randNum);
-        }
-        System.out.println(my_list);
-
-        int min_num = Collections.min(my_list);
-        System.out.printf("Минимальное число в списке %d \n", min_num);
-
-        int max_num = Collections.max(my_list);
-        System.out.printf("Максимальное число в списке %d \n", max_num);
-
-        int sum_list = my_list.stream().mapToInt(Integer::intValue).sum();
-        int average = sum_list / amount_elem;
-        System.out.printf("Среднее арифметическое в списке %d \n", average);
-    }
-}
+ import java.util.ArrayDeque;
+ import java.util.Arrays;
+ 
+ public class task3 {
+ 
+     private static boolean isDigit(String s) throws NumberFormatException {
+         try {
+             Integer.parseInt(s);
+             return true;
+         } catch (NumberFormatException e) {
+             return false;
+         }
+     }
+ 
+     public static void calculator(String str) {
+         ArrayDeque<Integer> stack = new ArrayDeque<>();
+         String[] newStr = str.split(" ");
+         System.out.println(Arrays.toString(newStr));
+         int result = 0;
+ 
+         for (int i = 0; i < newStr.length; i++) {
+             if (isDigit(newStr[i])) {
+                 stack.push(Integer.parseInt(newStr[i]));
+             } else {
+                 switch (newStr[i]) {
+                     case "+":
+                         result = stack.pop() + stack.pop();
+                         stack.push(result);
+                         break;
+                     case "-":
+                         result = stack.pop() - stack.pop();
+                         stack.push(result);
+                         break;
+                     case "*":
+                         result = stack.pop() * stack.pop();
+                         stack.push(result);
+                         break;
+                     case "/":
+                         result = stack.pop() / stack.pop();
+                         stack.push(result);
+                         break;
+                     default:
+                         break;
+                 }
+             }
+         }
+         System.out.println(stack);
+     }
+ 
+     public static void main(String[] args) {
+         String str = "1 2 3 * 4 * +";
+ 
+         calculator(str);
+     }
+ 
+ }

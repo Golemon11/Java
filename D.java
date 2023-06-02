@@ -58,7 +58,7 @@
         public class Main {
             public static
             void main(String[] args) {
-                Cat[] cats = {new Cat("Kuzy", 50), new Cat("Pupok", 50), new Cat("Zaika", 25), new Cat("Musy", 5), new Cat("Nyka", 1)};
+                Cat[] cats = {new Cat("Kuzy", 50), new Cat("Pupok", 50), new Cat("Zaika", 30), new Cat("Musy", 5), new Cat("Nyka", 10)};
         // Здесь вводим наполнение миски и программа автоматический определит кто из котов сможет насытится а кто нет.
         Plate plate = new Plate( 80);
          

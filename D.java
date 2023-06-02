@@ -46,7 +46,7 @@
             }
          
             void info() {
-                String isHungry = !hungry ? "сыт" : "голоден";
+                String isHungry = !hungry ? "Сыт" : "Голоден";
                 out.println(name + ": " + isHungry);
             }
          

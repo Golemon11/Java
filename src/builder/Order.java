@@ -1,7 +1,4 @@
-package Orders;
-
-import java.io.FileWriter;
-import java.io.IOException;
+package builder;
 
 public class Order{
 
@@ -9,16 +6,6 @@ public class Order{
     private String product;
     private int qnt;
     private int price;
-
-    public Order() {
-    }
-
-    public Order(String clientName, String product, int qnt, int price) {
-        this.clientName = clientName;
-        this.product = product;
-        this.qnt = qnt;
-        this.price = price;
-    }
 
     public String getClientName() {
         return clientName;
@@ -53,3 +40,4 @@ public class Order{
     }
 
 }
+
